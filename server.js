@@ -1,27 +1,21 @@
 const express = require("express");
-const logger = require("morgan");
+const apiRoutes = require("./routes/apiRoutes");
+const viewRoutes = require("./routes/viewRoutes");
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(logger("dev"));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("./Develop/public"));
+app.use(express.static("public"));
 
-app.post("/submit", ({ body }, res) => {
-  User.create(body)
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+require("./seeders/seed");
+
+app.use(apiRoutes);
+app.use(viewRoutes);
 
 app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+    console.log(`App running on port ${PORT}`);
 });
