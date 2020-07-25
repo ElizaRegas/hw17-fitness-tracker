@@ -1,12 +1,12 @@
 const path = require("path");
-const router = require("./apiRoutes");
-
-router.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/exercise.html'));
-});
+const router = require("express").Router();
 
 router.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+router.get("/exercise", (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/exercise.html'));
 });
 
 router.get("/stats", (req, res) => {
