@@ -13,16 +13,16 @@ const workoutSchema = new Schema(
         type: {
           type: String,
           trim: true,
-          required: "Enter a type of Exercise.",
+          required: "Enter type of exercise.",
         },
         name: {
           type: String,
           trim: true,
-          required: "Enter the name of the Exercise.",
+          required: "Enter name of exercise.",
         },
         duration: {
           type: Number,
-          required: "How long is this Exercise?",
+          required: "Enter length of exercise.",
         },
         weight: {
           type: Number,
@@ -46,11 +46,12 @@ const workoutSchema = new Schema(
   }
 );
 
+// adds a dynamically-created property to schema
 workoutSchema.virtual("totalDuration").get(function () {
-  // adding the duration of exercise with the "reduce" method
+  // "reduce" array of exercises down to just the sum of their durations
   return this.exercises.reduce((total, exercise) => {
     return total + exercise.duration;
-  }, 30);
+  }, 0);
 });
 const Workout = mongoose.model("workout", workoutSchema);
 

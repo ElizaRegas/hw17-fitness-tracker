@@ -1,34 +1,25 @@
 const express = require("express");
-const logger = require("morgan");
 const mongoose = require("mongoose");
-const routes = require("./routes/routes");
+const apiRoutes = require("./routes/apiRoutes");
+const viewRoutes = require("./routes/viewRoutes");
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(logger("dev"));
+const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/stats", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/banana", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useUnifiedTopology: true
 });
 
-app.post("/stats", ({ body }, res) => {
-  User.create(body)
-    .then((dbUser) => {
-      res.json(dbUser);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
-
-app.use(routes);
+app.use(apiRoutes);
+app.use(viewRoutes);
 
 app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+    console.log(`App running on port ${PORT}`);
 });
