@@ -1,4 +1,4 @@
-const Workout = require("../models/schema.js");
+const Workout = require("../models/Cardio.js");
 
 module.exports = (app) => {
   app.get("/api/workouts/range", (req , res) => {
