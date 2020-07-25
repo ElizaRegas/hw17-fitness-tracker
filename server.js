@@ -12,20 +12,17 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout"; 
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/stats", {
   useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true
+  useFindAndModify: false
 });
 
-app.post("/submit", ({ body }, res) => {
+app.post("/stats", ({ body }, res) => {
   User.create(body)
-    .then(dbUser => {
+    .then((dbUser) => {
       res.json(dbUser);
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 });
