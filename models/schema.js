@@ -4,60 +4,62 @@ mongoose.connect("mongodb://localhost/workouts", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 const Schema = mongoose.Schema;
 
-const WorkoutSchema = new Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: "Enter workout name."
-    },
-  type: {
-    type: String,
-    trim: true,
-    required: "Enter workout type"
-    },
-  weight: {
-    type: Number,
-    trim: true,
-    required: "Enter weight",
-    },
-  sets: {
-    type: Number,
-    trim: true,
-    required: "Enter number of sets",
-  },  
-  reps: {
-    type: Number,
-    trim: true,
-    required: "Enter number of reps",
-  },  
-  duration: {
-    type: Number,
-    trim: true,
-    required: "Enter workout duration",
+const Exercise = new Schema([
+  {
+    Resistance: {
+      name: {
+        type: String,
+        trim: true,
+        required: "Enter workout name.",
+      },
+      weight: {
+        type: Number,
+        trim: true,
+        required: "Enter weight",
+      },
+      sets: {
+        type: Number,
+        trim: true,
+        required: "Enter number of sets",
+      },
+      reps: {
+        type: Number,
+        trim: true,
+        required: "Enter number of reps",
+      },
+      duration: {
+        type: Number,
+        trim: true,
+        required: "Enter workout duration",
+      }
+    }
+  },
+  {
+    Cardio: {
+      name: {
+        type: String,
+        trim: true,
+        required: "Enter workout name.",
+      },
+      distance: {
+        type: Number,
+        trim: true,
+        required: "Enter workout distance",
+      },
+      duration: {
+        type: Number,
+        trim: true,
+        required: "Enter workout duration",
+      }
+    }
   }
-});
+]);
 
-const Workout = mongoose.model("Workout", WorkoutSchema);
+const Workout = mongoose.model("Workout", Exercise);
 
 module.exports = Workout;
-
-
-    // day: {
-    //     type: Date, default: new Date
-    // },
-    
-    // {
-    // toJSON:{
-    //     virtuals: true
-    // }
-
-// workoutsSchema.virtual("totalDuration").get(function(){
-//     return this.exercises.reduce((total, exercise) => {
-//         return total + exercise.duration;
-//     },0)
-// });

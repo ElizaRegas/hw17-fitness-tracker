@@ -1,9 +1,7 @@
 const path = require("path");
 
-
-const viewRoutes = (app) => {
+module.exports = (app) => {
   app.get("/", (req, res) => {
-    console.log("index hit");
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
@@ -15,5 +13,3 @@ const viewRoutes = (app) => {
     res.sendFile(path.join(__dirname, "../public/stats.html"));
   });
 };
-
-module.exports = viewRoutes;
