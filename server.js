@@ -12,12 +12,22 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/budget"; 
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout"; 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
   useUnifiedTopology: true
+});
+
+app.post("/submit", ({ body }, res) => {
+  User.create(body)
+    .then(dbUser => {
+      res.json(dbUser);
+    })
+    .catch(err => {
+      res.json(err);
+    });
 });
 
 app.use(routes);
